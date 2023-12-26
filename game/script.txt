@@ -1,0 +1,57 @@
+
+Duration: 20 + 5 minutes.
+
+
+First of all, a sound test because this talk will involve some audio panning. 
+Can you hear the sound go from left to right? Alright.
+
+Hi! My name is Alfred and welcome to my tech talk!
+
+A little bit about myself, I've been working with Ren'Py for over 7 years now.
+I've worked as a solo developer in Usagi Syndrome, lead developer in Mycorrhiza,
+Porting programmer in Save Me Sakuya-san, Ren'Py teacher in university club I studied at for a year, 
+and took parts on other VN projects.
+Aside from Ren'Py, I've used GameMaker Studio for some time now and a tiny bit of Unity. 
+
+In this talk, I am partnered with Tim Reichert. 
+In case you didn't know, he is an sound engineer, composer, audio director, and a musicologist.
+He is also the lead developer and writer in Mycorrhiza VN. 
+Last year in VN Conference 2023, he did a talk about what dynamic audio is, so this talk is to expand it further.
+If you have any audio-specific questions, Tim will help answer that for you.
+
+A friendly warning, because this talk is oriented on the technical side,
+Ren'Py and Python codes are used in this talk; along with some math too.
+I will try my best to keep the codes and math at minimum and to make them more digestable. 
+One last thing, the source code and this talk script is available on GitHub link in the chat.
+Inside it there's a bonus section for supplementary and unused shenanigan when making this talk.
+
+That's that for the introduction. Now, into the topic.
+There will be three main sections to this talk, from review on what dynamic audio is, Ren'Py screens, and four scenario cases.
+
+First of all, what is dynamic audio?
+Here I quote the definition from Tim, "Dynamic audio is ...".
+This means that audio that is playing can be affected by player's interaction or by random chances.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
