@@ -114,6 +114,9 @@ label part1:
         
     pause
     
+    jump part2
+    
+    # Skipped this part because it's not as useful
     show text "{size=[size_h1]}{color=[cblue]}Outline{/color}{/size}" as text1:
         align(0.5, 0.2)
     show screen line_align(0.5, 0.13, 400, color=cblue, grad=True)
@@ -121,13 +124,13 @@ label part1:
         anchor(0, 0) pos(500, 400)
     with diss_diag
     pause
-    show text "{size=[size_h3]}2. Common use cases{/size}" as text3 with diss_diag:
+    show text "{size=[size_h3]}2. Player's Action{/size}" as text3 with diss_diag:
         anchor(0, 0) pos(500, 525)
     pause
-    show text "{size=[size_h3]}3. Ren'Py screen trick{/size}" as text4 with diss_diag:
+    show text "{size=[size_h3]}3. Randomization{/size}" as text4 with diss_diag:
         anchor(0, 0) pos(500, 650)
     pause
-    show text "{size=[size_h3]}4. Advanced use cases{/size}" as text5 with diss_diag:
+    show text "{size=[size_h3]}4. Closing{/size}" as text5 with diss_diag:
         anchor(0, 0) pos(500, 775)
     
     pause
@@ -235,10 +238,6 @@ label part3a:
     
     pause
     
-    show screen border_pos_morph(875, 250, 665, 85,  875, 250, 665, 85,  border_color=cblue) with diss_diag
-    
-    pause
-    
     show i_hubhousehallwaynight as i_hubhousehallwayday  # He realises that he had to go outside and touch some grass
     
     play music splatters
@@ -249,6 +248,12 @@ label part3a:
         "{color=[cyellow]}play{/color} music splatters",
         "\"{color=[cgreen]}Oh no! I forgot ...{/color}\"",
         "{color=[cyellow]}pause{/color}"]
+    
+    pause
+    
+    show screen border_pos_morph(875, 250, 665, 85,  875, 250, 665, 85,  border_color=cblue) with diss_diag
+    
+    pause
     
     show screen border_pos_morph(875, 250, 665, 85,  875, 665, 635, 85,  border_color=cblue)
     
@@ -999,15 +1004,15 @@ label part6:
     
     pause
     
-    #show text "{color=[cblue]}Ranim{/color}" with diss_diag
+    show text "{color=[cyellow]}Made With :{/color}\n\n- Ranim{vspace=32}- Ren'Py [renpy.version_only]" with diss_diag
     
-    #pause
+    pause
     
-    #hide text with diss_diag
+    hide text with diss_diag
     
-    #pause
+    pause
     
-    show text "{color=[cyellow]}Any Question ?{/color}" with diss_diag
+    show text "{color=[cblue]}Any Question ?{/color}" with diss_diag
     
     pause
     
@@ -1022,16 +1027,39 @@ label part6:
 ## Part #7: Extras ##################################################################################################################################
 label extra:
     
-    show text "Welcome to the extra room!" with diss_diag:
+    show text "Welcome to the {color=[cyellow]}extra{/color} room!\n\nHere are some of the things that \ndidn't make it to the talk." with diss_diag:
         align(0.5, 0.5)
         
     pause
     
-    jump extra1
+    hide text with diss_diag
+    
+    jump extra_hub
+    
+# All extra choices goes back to this hub
+label extra_hub:
+    
+    scene multibg
+    
+    show screen extra_hub_choice with dissolve
+    
+    pause
+    
+    # 4 Choice:
+    # - Ranim test stuffs
+    # - Different panning changes
+    # - Music vs Sound queue
+    # - Realistic moving sound source
+    
+    jump extra_hub
 
+# Ranim test stuffs
+# Random stuffs. Not that important, but I just leave it here.
 label extra1:
     
-    hide text with diss_diag
+    hide screen extra_hub_choice
+    scene black
+    with dissolve
     
     show text "{color=[cblue]}Example of customizable user interface utilities{/color}" as text1 with diss_diag:
         align(0.5, 0.2)
@@ -1049,7 +1077,50 @@ label extra1:
     
     hide screen test1
     scene black
+    with diss_diag
     
+    pause 0.5
+    
+    play music gentleness
+    
+    scene i_hubhousehallwaynight
+    show may1
+    with dissolve
+    
+    pause 0.75
+    
+    show may2
+    show dialogue1 "I can finally rest now that I have finished doing my groceries."
+    
+    pause
+    
+    show dialogue1 "Next time I won't forget to do my responsibilities."
+    
+    pause
+    
+    hide dialogue1
+    hide may2 with dissolve
+    
+    pause 0.25
+    
+    hide may1 with dissolve
+    
+    pause 0.75
+    
+    stop music fadeout 2
+    
+    scene black with dissolve
+
+    jump extra_hub
+
+# Different panning change movements
+# In here, I initially made changes in linear, sin, and quadratic. However, you can implement your own function to this as you like.
+label extra2:
+    
+    hide screen extra_hub_choice
+    scene black
+    with dissolve
+
     show text "Pan Test" with diss_diag:
         align(0.5, 0.5)
     
@@ -1086,13 +1157,69 @@ label extra1:
     
     pause
     
+    stop music fadeout 2
     python:
         pan_progress = 0.5
         pan_value = 0.0
     hide screen pan_oscillation
     scene black
     
+    jump extra_hub
+
+# Music vs Sound queue
+# This section lets you play around more with queue for music and sound channels.
+label extra3:
+    hide screen extra_hub_choice
+    scene black
+    with dissolve
+    
+    show screen horizontal_demo with diss_diag
+    
     pause
     
-    return
+    stop music fadeout 1
+    
+    hide screen horizontal_demo with diss_diag
+    
+    show screen horizontal_demo_sound with diss_diag
+    
+    pause
+    
+    stop sound fadeout 2
+    
+    hide screen horizontal_demo_sound with diss_diag
+    
+    jump extra_hub
 
+# Semi-realistic moving audio source
+# Note: I say "semi" because this does not include doppler effect when the audio source or mouse position moves.
+label extra4:
+    hide screen extra_hub_choice
+    scene black
+    with dissolve
+    
+    play music crystal_blue
+    
+    show screen pan_oscillation_mouse_morph(show_text=True) with diss_diag
+    
+    pause
+    
+    show screen pan_oscillation_mouse_morph(to_x=480, to_radius=200, show_text=True)
+    
+    pause
+    
+    show screen pan_oscillation_mouse_morph(480, 540, 200, 1500, 200, 400, show_text=True)
+    
+    pause
+    
+    hide screen pan_oscillation_mouse_morph with diss_diag
+    
+    show screen pan_oscillation_mouse(type="Quadratic", show_text=True) with diss_diag
+    
+    pause
+    
+    stop music fadeout 2
+    
+    hide screen pan_oscillation_mouse with diss_diag
+    
+    jump extra_hub

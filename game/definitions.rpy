@@ -210,8 +210,6 @@ screen arrow_align(x, y, length, width=32, angle=0, color="#fff"):
         background Frame("arrowhead", Borders(0, 1, 31, 1))
         area(int((1920*x) - (max(length, width) * x)), int((1080*y) - (max(length, width) * y)), length, width)  # A hacky implementation of positioning.
 
-transform xadasd:
-    alpha 0.5
 default dur = 0.0
 default curr = 0.0
 default progress = 0.0
@@ -859,10 +857,80 @@ screen horizontal_demo():
             action SetField(renpy.audio.audio.get_channel('music'), "queue", [])
         textbutton "Stop Music":
             action Stop("music")
+            
+screen horizontal_demo_sound():
+    python:
+        if len(renpy.audio.audio.get_channel('sound').queue) != 0:
+            curr_queue = []
+            for i in renpy.audio.audio.get_channel('sound').queue:
+                curr_queue.append( int(back_index[i.filename]) )
+        else:
+            curr_queue = []
+    
+    text "Queue: [curr_queue]":
+        align(0.5, 0.3)
+    
+    text "Currently playing: " + back_index[str(renpy.music.get_playing(channel='sound'))] :
+        pos(420, 590)
+    use audio_progress(420, 700, color=cgreen, show_text=True, channel="sound")
+    
+    hbox:
+        align(0.5, 0.4)
+        spacing 32
         
+        textbutton "Add":
+            action Queue("sound", back_sequence[renpy.random.randint(0, 2)], clear_queue=False)
+        textbutton "Reset Queue":
+            action SetField(renpy.audio.audio.get_channel('sound'), "queue", [])
+        textbutton "Stop Sound":
+            action Stop("sound")
+        
+screen extra_hub_choice():
+    modal True
+    zorder 2
     
+    add "multibg"
     
+    text "Choose A Section":
+        color cblue
+        size size_h1
+        align(0.5, 0.125)
     
+    use border_align(0.2, 0.35, 540, 270, width=3, border_color="#fff", alpha=1.0)
+    use border_align(0.8, 0.35, 540, 270, width=3, border_color="#fff", alpha=1.0)
+    use border_align(0.2, 0.85, 540, 270, width=3, border_color="#fff", alpha=1.0)
+    use border_align(0.8, 0.85, 540, 270, width=3, border_color="#fff", alpha=1.0)
+    
+    use arrow_pos(1280, 360, 50)
+    use arrow_pos(1280, 420, 100)
+    use arrow_pos(1280, 480, 200)
+    
+    use border_pos(405, 730, 270, 50, 5, border_color=cblue)
+    use border_pos(405, 860, 270, 50, 5, border_color=cgreen)
+    
+    use border_pos_circ(1280, 720, 100, border_color=cblue)
+    use arrow_pos(1380, 820, 75, alpha=0.25)
+    
+    text "?":
+        color cbrown
+        size 102
+        align(0.28, 0.375)
+    
+    textbutton "1. Ranim test stuffs":
+        align(0.23, 0.56)
+        action Jump("extra1")
+        
+    textbutton "2. Different pan movements":
+        align(0.796, 0.56)
+        action Jump("extra2")
+    
+    textbutton "3. Music vs Sound queue":
+        align(0.215, 0.96)
+        action Jump("extra3")
+    
+    textbutton "4. Semi-realistic audio source":
+        align(0.8, 0.96)
+        action Jump("extra4")
     
     
     
