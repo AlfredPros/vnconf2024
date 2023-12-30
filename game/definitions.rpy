@@ -503,8 +503,8 @@ screen crossfade_channel1(x, y):
 screen crossfade_channel2(x, y):
     zorder 2
     
-    use audio_progress(x, y, width=480, color=cblue, show_text=True)
-    use audio_progress(x, y+125, width=480, color=cgreen, channel="sound", show_text=True)
+    use audio_progress(x, y, width=480, color=cblue, channel="back", show_text=True)
+    use audio_progress(x, y+125, width=480, color=cgreen, channel="drums", show_text=True)
 
 default code_text = [""]
 screen show_code(x, y, size=size_h3, code_text=code_text):
@@ -583,6 +583,13 @@ screen music_config_bars(x=300, y=200):
     text "{color=[cred]}Pattern ([chill_pattern]){/color}":
         pos(x, y+500)
     use audio_progress(x, y+600, color=cred, channel="pattern")
+    
+screen music_config_bars_simple(x=300, y=200):
+    zorder 2
+    
+    text "{color=[cblue]}Back{/color}":
+        pos(x, y)
+    use audio_progress(x, y+100, color=cblue, channel="back")
     
 screen music_config(show_debug = False):
     zorder 2

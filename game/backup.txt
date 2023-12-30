@@ -1,0 +1,246 @@
+
+label abandoned0:
+	scene i_hubhousehallwayday with Dissolve(1)  # He is enjoying surfing through the internet; and suddenly-
+    
+    play music gentleness
+    
+    show dialogue1 "What a productive day so far... Surfing the internet."
+    
+    pause
+    
+    scene i_hubhousehallwaynight  # He realises that he had to go outside and touch some grass
+    play music splatters
+    
+    show dialogue1 "Oh no! I forgot to do my groceries!"
+    
+    pause
+    
+    scene black4k with Dissolve(1):
+        pos(0,0)
+    stop music fadeout 2
+    
+    pause
+    
+    show i_hubhousehallwayday with Dissolve(1)  # He is enjoying surfing through the internet; and suddenly-
+    
+    play music gentleness
+    
+    show dialogue1 "What a productive day so far... Surfing the internet."
+    
+    pause
+    
+    camera:
+        zoom 1.0
+        ease 1.5 zoom 0.4
+    
+    pause 1.0
+    
+    $ code_text = ["{color=[cyellow]}scene{/color} house_light",
+        "{color=[cyellow]}play{/color} music gentleness",
+        "\"{color=[cgreen]}What a productive day ...{/color}\"",
+        "{color=[cyellow]}pause{/color}", 
+        ""]
+    
+    show screen show_code(900, 175) with diss_diag
+    
+    pause
+    
+    show i_hubhousehallwaynight as i_hubhousehallwayday  # He realises that he had to go outside and touch some grass
+    
+    play music splatters
+    
+    show dialogue1 "Oh no! I forgot to do my groceries!"
+    
+    $ code_text += ["{color=[cyellow]}scene{/color} house_dark",
+        "{color=[cyellow]}play{/color} music splatters",
+        "\"{color=[cgreen]}Oh no! I forgot ...{/color}\"",
+        "{color=[cyellow]}pause{/color}"]
+    
+    pause
+    
+    show screen border_pos_morph(875, 250, 665, 85,  875, 250, 665, 85,  border_color=cblue) with diss_diag
+    
+    pause
+    
+    show screen border_pos_morph(875, 250, 665, 85,  875, 665, 635, 85,  border_color=cblue)
+    
+    pause
+    
+    stop music fadeout 2
+    camera:
+        zoom 1.0
+    scene black
+    hide screen show_code
+    hide screen border_pos_morph
+    with diss_diag
+    
+    pause
+
+
+label abandoned1:
+    show text "{size=[size_h1]}{color=[cblue]}Crossfade{/color}{/size}":
+        align(0.5, 0.5)
+    
+    play music tendra_fi_inst_intro
+    queue music tendra_fi_inst
+    
+    pause
+    
+    show text "{size=[size_h1]}{color=[cblue]}Crossfade{/color}{/size}":
+        ease_quad 0.75 align(0.5, 0.2)
+        
+    pause 0.01
+    
+    $ renpy.show_screen("crossfade_channel1", 400, 450, _layer="master")
+    with diss_diag
+    
+    pause
+    pause
+    
+    jump switch_crossfade
+    
+label switch_crossfade:  # Jankness - Note: This doesn't sound seamless in Ren'Py 7.6/8.1 due to audio fadein/fadeout behavior change.
+    if crossfade_switched:
+        if renpy.music.is_playing(channel="music"):
+            play sound "<sync music loop 0.0>" + tendra_fi loop fadein 2
+            stop music fadeout 2
+    else:
+        if renpy.music.is_playing(channel="sound"):
+            play music "<sync sound loop 0.0>" + tendra_fi_inst fadein 2
+            stop sound fadeout 2
+    
+    pause
+    pause
+        
+    jump part3b
+    
+label part3b:
+    
+    camera:
+        zoom 1.0
+        ease_quad 2.0 zoom 0.4
+    
+    pause 1.0
+    
+    $ passed_switch_crossfade = True
+    
+    $ code_text = ["{color=[cyellow]}if{/color} switch_to_music:",
+        "    {color=[cyellow]}play{/color} {color=[cblue]}music{/color} \"<sync {color=[cgreen]}sound{/color} loop 0.0>\" + {color=[cpurple]}tendra_fi_inst{/color} fadein 2",
+        "    {color=[cyellow]}stop{/color} {color=[cgreen]}sound{/color} fadeout 2",
+        "{color=[cyellow]}else{/color}:", 
+        "    {color=[cyellow]}play{/color} {color=[cgreen]}sound{/color} \"<sync {color=[cblue]}music{/color} loop 0.0>\" + {color=[cpurple]}tendra_fi{/color} loop fadein 2 ",
+        "    {color=[cyellow]}stop{/color} {color=[cblue]}music{/color} fadeout 2"]
+    
+    show screen show_code(150, 500, size_h4) with diss_diag
+    
+    pause
+    
+    show screen border_pos_morph(140, 490, 500, 80,  140, 490, 500, 80,  border_color=cblue) with diss_diag  # If
+    
+    pause
+    
+    show screen border_pos_morph(140, 490, 500, 80,  230, 560, 1560, 150,  border_color=cblue)  # 2 lines
+    
+    pause
+    
+    show screen border_pos_morph(230, 560, 1560, 150,  230, 560, 1560, 80,  border_color=cblue) # First 2 lines
+    
+    pause
+    
+    show screen border_pos_morph(230, 560, 1560, 80,  230, 632, 550, 80,  border_color=cblue) # Second 2 lines
+    
+    pause
+    
+    show screen border_pos_morph(230, 632, 550, 80,  560, 560, 290, 80,  border_color=cblue)  # Sync sound
+    
+    pause
+    
+    show screen border_pos_morph(560, 560, 290, 80,  840, 560, 240, 80,  border_color=cblue)  # loop 0.0
+    
+    pause
+    
+    show screen border_pos_morph(840, 560, 240, 80,  230, 780, 1560, 150,  border_color=cblue) # First 2 lines
+    
+    pause
+    
+    camera:
+        zoom 1.0
+    stop music fadeout 2
+    stop sound fadeout 2
+    scene black
+    hide screen crossfade_channel1
+    hide screen show_code
+    hide screen border_pos_morph
+    with diss_diag
+    
+    pause
+    
+    show text "{color=[cred]}Issue: Audio Loading Time{/color}" as text1 with diss_diag
+    
+    pause
+    
+    show text "{color=[cred]}Issue: Audio Loading Time{/color}" as text1:
+        ease_quad 0.5 align(0.5, 0.3)
+        
+    pause 0.01
+    
+    show screen arrow_align(0.5, 0.5, 180, angle=90)
+    
+    show text "{color=[cpurple]}Audio Channels Desync{/color}" as text2:
+        align(0.5, 0.7)
+    with diss_diag
+        
+    pause
+    
+    scene black
+    hide screen arrow_align
+    with diss_diag
+    
+    pause
+
+
+
+Imagine a scenario where a main character is having the best time of their life.
+Here a calm music is playing in the background. ...
+Suddenly, a disaster struck and the music is changed to a tense one. ...
+
+Alright, let's rewind that from the start.
+I will put up the scene on top left and we will check the code for this scene.
+This is the first four lines of code.
+First, we show the background image house_light.
+Here on the second line, we play the music titled gentleness.
+Then show the dialogue.
+Notice here that there is a pause. 
+I intentionally put the pause here to indicate player's action to click for the scene to continue.
+As the player clicks, the scene changed. The code structure is the same, but notice that we change the music 
+from gentleness ... into splatter.
+
+
+    
+Previously, I showed you an example where the music changed suddenly, so let's take a look on another example.
+
+... Crossfade is a term we use to switch one audio to another in cross-like manner.
+Here I have a small demo of two progress bar for music and sound channels.
+The "switch" button, if pressed, ...
+it will fadeout the current channel, and fadein the other channel at the same time. ...
+In this case, the music channel is playing the instrumental version.
+Both audio has the same length and instrumental, so
+I tried to make sure their current duration is the same when we switch.
+
+Looking under the hood, when player clicks the "switch" button, it jumps you into a label to switch the audio channel.
+As for the code, it looks something like this.
+First, we do an if check to switch the music channel or not.
+If we switch to music channel, we do the following two lines of code.
+Starting by playing the instrumental version in music channel with 2 seconds fade in.
+And then we stop sound channel with 2 seconds fade out.
+Notice here that I used "sync sound". This tells Ren'Py to sync the current duration of the audio with the sound channel.
+And here I put loop 0 second to let Ren'Py know that once the audio ends playing, it loops back at 0 second mark.
+If you don't use this loop 0 seconds, the audio may loop back to the duration it started playing, 
+which is not ideal for this scenario.
+On hind sight, when we switch to sound channel, it will play the sound channel and stop the music channel instead.
+
+Common issue when you're dealing with playing multiple audio channels is that 
+it takes time to load the audio before it can play.
+This result in two audio channels to desync from each other. 
+This issue is especially worse if your computer spec is on the lower end.
+

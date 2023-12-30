@@ -87,7 +87,7 @@ label part1:
     show text "{size=[size_h4]}- Talked about dynamic audio last year{/size}" as text4 with diss_diag:
         anchor(0, 0) pos(800, 620)
     pause
-    show text "{size=[size_h4]}- He is good at singing! (gasp){/size}" as text5 with diss_diag:
+    show text "{size=[size_h4]}- He is good at singing! (gasp with lie){/size}" as text5 with diss_diag:
         anchor(0, 0) pos(800, 730)
     pause
     
@@ -193,83 +193,6 @@ unconscious, or variables being {color=[cyellow]}randomized{/color} independent 
 ## Part #3: Common Use Case #########################################################################################################################
 label part3a:
     
-    scene i_hubhousehallwayday with Dissolve(1)  # He is enjoying surfing through the internet; and suddenly-
-    
-    play music gentleness
-    
-    show dialogue1 "What a productive day so far... Surfing the internet."
-    
-    pause
-    
-    scene i_hubhousehallwaynight  # He realises that he had to go outside and touch some grass
-    play music splatters
-    
-    show dialogue1 "Oh no! I forgot to do my groceries!"
-    
-    pause
-    
-    scene black4k with Dissolve(1):
-        pos(0,0)
-    stop music fadeout 2
-    
-    pause
-    
-    show i_hubhousehallwayday with Dissolve(1)  # He is enjoying surfing through the internet; and suddenly-
-    
-    play music gentleness
-    
-    show dialogue1 "What a productive day so far... Surfing the internet."
-    
-    pause
-    
-    camera:
-        zoom 1.0
-        ease 1.5 zoom 0.4
-    
-    pause 1.0
-    
-    $ code_text = ["{color=[cyellow]}scene{/color} house_light",
-        "{color=[cyellow]}play{/color} music gentleness",
-        "\"{color=[cgreen]}What a productive day ...{/color}\"",
-        "{color=[cyellow]}pause{/color}", 
-        ""]
-    
-    show screen show_code(900, 175) with diss_diag
-    
-    pause
-    
-    show i_hubhousehallwaynight as i_hubhousehallwayday  # He realises that he had to go outside and touch some grass
-    
-    play music splatters
-    
-    show dialogue1 "Oh no! I forgot to do my groceries!"
-    
-    $ code_text += ["{color=[cyellow]}scene{/color} house_dark",
-        "{color=[cyellow]}play{/color} music splatters",
-        "\"{color=[cgreen]}Oh no! I forgot ...{/color}\"",
-        "{color=[cyellow]}pause{/color}"]
-    
-    pause
-    
-    show screen border_pos_morph(875, 250, 665, 85,  875, 250, 665, 85,  border_color=cblue) with diss_diag
-    
-    pause
-    
-    show screen border_pos_morph(875, 250, 665, 85,  875, 665, 635, 85,  border_color=cblue)
-    
-    pause
-    
-    stop music fadeout 2
-    camera:
-        zoom 1.0
-    scene black
-    hide screen show_code
-    hide screen border_pos_morph
-    with diss_diag
-    
-    pause
-    
-    
     show text "{size=[size_h1]}{color=[cblue]}Audio Channels{/color}{/size}" as text1:
         align(0.5, 0.25)
     show screen line_align(0.5, -0.3, 840, color=cblue, grad=True)
@@ -286,214 +209,6 @@ label part3a:
     scene black4k:
         pos(0,0)
     hide screen line_align
-    with diss_diag
-    
-    pause
-        
-    
-    show text "{size=[size_h1]}{color=[cblue]}Crossfade{/color}{/size}":
-        align(0.5, 0.5)
-    
-    play music tendra_fi_inst_intro
-    queue music tendra_fi_inst
-    
-    pause
-    
-    show text "{size=[size_h1]}{color=[cblue]}Crossfade{/color}{/size}":
-        ease_quad 0.75 align(0.5, 0.2)
-        
-    pause 0.01
-    
-    $ renpy.show_screen("crossfade_channel1", 400, 450, _layer="master")
-    with diss_diag
-    
-    pause
-    pause
-    
-    jump switch_crossfade
-    
-label switch_crossfade:  # Jankness - Note: This doesn't sound seamless in Ren'Py 7.6/8.1 due to audio fadein/fadeout behavior change.
-    if crossfade_switched:
-        if renpy.music.is_playing(channel="music"):
-            play sound "<sync music loop 0.0>" + tendra_fi loop fadein 2
-            stop music fadeout 2
-    else:
-        if renpy.music.is_playing(channel="sound"):
-            play music "<sync sound loop 0.0>" + tendra_fi_inst fadein 2
-            stop sound fadeout 2
-    
-    pause
-    pause
-        
-    jump part3b
-    
-label part3b:
-    
-    camera:
-        zoom 1.0
-        ease_quad 2.0 zoom 0.4
-    
-    pause 1.0
-    
-    $ passed_switch_crossfade = True
-    
-    $ code_text = ["{color=[cyellow]}if{/color} switch_to_music:",
-        "    {color=[cyellow]}play{/color} {color=[cblue]}music{/color} \"<sync {color=[cgreen]}sound{/color} loop 0.0>\" + {color=[cpurple]}tendra_fi_inst{/color} fadein 2",
-        "    {color=[cyellow]}stop{/color} {color=[cgreen]}sound{/color} fadeout 2",
-        "{color=[cyellow]}else{/color}:", 
-        "    {color=[cyellow]}play{/color} {color=[cgreen]}sound{/color} \"<sync {color=[cblue]}music{/color} loop 0.0>\" + {color=[cpurple]}tendra_fi{/color} loop fadein 2 ",
-        "    {color=[cyellow]}stop{/color} {color=[cblue]}music{/color} fadeout 2"]
-    
-    show screen show_code(150, 500, size_h4) with diss_diag
-    
-    pause
-    
-    show screen border_pos_morph(140, 490, 500, 80,  140, 490, 500, 80,  border_color=cblue) with diss_diag  # If
-    
-    pause
-    
-    show screen border_pos_morph(140, 490, 500, 80,  230, 560, 1560, 150,  border_color=cblue)  # 2 lines
-    
-    pause
-    
-    show screen border_pos_morph(230, 560, 1560, 150,  230, 560, 1560, 80,  border_color=cblue) # First 2 lines
-    
-    pause
-    
-    show screen border_pos_morph(230, 560, 1560, 80,  230, 632, 550, 80,  border_color=cblue) # Second 2 lines
-    
-    pause
-    
-    show screen border_pos_morph(230, 632, 550, 80,  560, 560, 290, 80,  border_color=cblue)  # Sync sound
-    
-    pause
-    
-    show screen border_pos_morph(560, 560, 290, 80,  840, 560, 240, 80,  border_color=cblue)  # loop 0.0
-    
-    pause
-    
-    show screen border_pos_morph(840, 560, 240, 80,  230, 780, 1560, 150,  border_color=cblue) # First 2 lines
-    
-    pause
-    
-    camera:
-        zoom 1.0
-    stop music fadeout 2
-    stop sound fadeout 2
-    scene black
-    hide screen crossfade_channel1
-    hide screen show_code
-    hide screen border_pos_morph
-    with diss_diag
-    
-    pause
-    
-    show text "{color=[cred]}Issue: Audio Loading Time{/color}" as text1 with diss_diag
-    
-    pause
-    
-    show text "{color=[cred]}Issue: Audio Loading Time{/color}" as text1:
-        ease_quad 0.5 align(0.5, 0.3)
-        
-    pause 0.01
-    
-    show screen arrow_align(0.5, 0.5, 180, angle=90)
-    
-    show text "{color=[cpurple]}Audio Channels Desync{/color}" as text2:
-        align(0.5, 0.7)
-    with diss_diag
-        
-    pause
-    
-    scene black
-    hide screen arrow_align
-    with diss_diag
-    
-    pause
-    
-    show text "Load and play both at the same time!\na.k.a {color=[cyellow]}Synchronous Start{/color}" with diss_diag
-    
-    pause
-    
-    hide text with diss_diag
-    
-    pause
-    
-    show screen crossfade_channel2(950, 50) with diss_diag
-    
-    pause
-    
-    show a1_ruralstreet with Dissolve(1)
-    
-    python:
-        renpy.music.play("audio/hanging_in_town.opus", synchro_start=True)
-        renpy.music.play("audio/hanging_in_town_bitcrush.opus", channel='sound', loop=True, synchro_start=True)
-        renpy.sound.set_volume(0.0, delay=0.0)
-        
-    show dialogue1 "I hope it's not too late for doing grocery."
-        
-    pause
-    
-    show a1_ruralstreetnight as a1_ruralstreet with Dissolve(1)
-    
-    python:
-        renpy.music.set_volume(0.0, delay=2.0)
-        renpy.sound.set_volume(1.0, delay=2.0)
-        
-    show dialogue1 "Wait. Why is the sky suddenly turn darker?"
-        
-    pause
-    
-    scene black with Dissolve(2)
-    
-    python:
-        renpy.music.set_volume(1.0, delay=2.0)
-        renpy.sound.set_volume(0.0, delay=2.0)
-    
-    $ code_text = ["{color=[cyellow]}scene{/color} street_light",
-        "{color=[cyellow]}${/color} renpy.{color=[cblue]}music{/color}.play(\"{color=[cgreen]}norm.ogg{/color}\", {color=[cred]}synchro_start{/color}=True)", 
-        "{color=[cyellow]}${/color} renpy.music.play(\"{color=[cgreen]}scry.ogg{/color}\", {color=[cred]}synchro_start{/color}=True, channel='{color=[cgreen]}sound{/color}', loop=True)",
-        "{color=[cyellow]}${/color} renpy.{color=[cgreen]}sound{/color}.set_volume(0.0, delay=0.0)",
-        "\"{color=[cgreen]}I hope it's not too late for doing grocery.{/color}\"",
-        "{color=[cyellow]}pause{/color}",
-        ""]
-    
-    show screen show_code(100, 250, size_h5) with diss_diag
-    
-    pause
-    
-    show screen border_pos_morph(85, 300, 1750, 145,  85, 300, 1750, 145,  border_color=cblue) with diss_diag 
-    
-    pause
-    
-    show screen border_pos_morph(85, 300, 1750, 145,  770, 300, 430, 145,  border_color=cblue)
-    
-    pause
-    
-    show screen border_pos_morph(770, 300, 430, 145,  85, 430, 915, 75,  border_color=cblue)
-    
-    pause
-    
-    python:
-        renpy.music.set_volume(0.0, delay=2.0, channel='music')
-        renpy.music.set_volume(1.0, delay=2.0, channel='sound')
-    
-    $ code_text += ["{color=[cyellow]}scene{/color} street_dark",
-        "{color=[cyellow]}${/color} renpy.{color=[cblue]}music{/color}.set_volume(0.0, delay=2.0)", 
-        "{color=[cyellow]}${/color} renpy.{color=[cgreen]}sound{/color}.set_volume(1.0, delay=2.0)",
-        "\"{color=[cgreen]}Wait. Why is the sky suddenly turn darker?{/color}\"",
-        "{color=[cyellow]}pause{/color}",
-        ""]
-    
-    show screen border_pos_morph(85, 430, 915, 75,  85, 740, 915, 145,  border_color=cblue)
-    
-    pause
-    
-    stop music fadeout 2
-    stop sound fadeout 2
-    hide screen crossfade_channel2
-    hide screen show_code
-    hide screen border_pos_morph
     with diss_diag
     
     pause
@@ -551,6 +266,162 @@ label part3b:
     with Dissolve(1)
     
     pause
+    
+    show text "{size=[size_h1]}{color=[cyellow]}Core Idea{/color}{/size}" as text1:
+        align(0.5, 0.3)
+    show screen line_align(0.5, 0.24, 540, color=cyellow, grad=True)
+    show text "#1: Custom Audio Channels" as text2:
+        anchor(0, 0) pos(525, 500) zoom 1.0
+    show text "#2: Syncing Audio Channels" as text3:
+        anchor(0, 0) pos(525, 665)
+    with diss_diag
+    
+    pause
+    
+    hide screen line_align
+    scene black
+    with diss_diag
+    
+    pause
+    
+    show text "{color=[cblue]}Custom Audio Channels{/color}" as text1 with diss_diag
+    
+    pause
+    
+    show text "{color=[cblue]}Custom Audio Channels{/color}" as text1:
+        ease_quad 1.0 yalign 0.2
+        
+    show screen music_config_bars_simple(600, 420) with diss_diag
+    
+    pause
+    
+    $ code_text = ["{color=[cyellow]}init python{/color}:",
+        "    renpy.music.register_channel(\"{color=[cblue]}back{/color}\", \"{color=[cgreen]}music{/color}\", loop=True)"]
+    
+    show screen show_code(200, 750, size_h4)
+    
+    pause
+    
+    show screen border_pos_morph(1020, 814, 180, 70,  1020, 814, 180, 70, border_color=cblue) with diss_diag
+    
+    pause
+    
+    show screen border_pos_morph(1020, 814, 180, 70,  1230, 814, 190, 70, border_color=cblue)
+    
+    pause
+    
+    show screen border_pos_morph(1230, 814, 190, 70,  1450, 814, 250, 70, border_color=cblue)
+    
+    pause
+    
+    hide screen border_pos_morph
+    hide screen show_code 
+    with diss_diag
+    
+    pause
+    
+    play back chill_back1
+    
+    pause
+    
+    $ code_text = ["{color=[cyellow]}play{/color} {color=[cblue]}back{/color} chill_back1"]
+    
+    show screen show_code(655, 800, size_h3)
+    
+    pause
+    
+    stop back fadeout 2
+    hide screen show_code
+    hide screen music_config_bars_simple
+    scene black 
+    with diss_diag
+    
+    pause
+    
+    show text "{color=[cblue]}Syncing Audio Channels{/color}" with diss_diag
+    
+    pause
+    
+    hide text with diss_diag
+    
+    pause
+    
+    show screen crossfade_channel2(950, 50) with diss_diag
+    
+    pause
+    
+    show a1_ruralstreet with Dissolve(1)
+    
+    python:
+        renpy.music.play("audio/chill_back1.ogg", channel="back", synchro_start=True)
+        renpy.music.play("audio/chill_drums2.ogg", channel="drums", synchro_start=True)
+        renpy.music.set_volume(0.0, delay=0.0, channel="drums")
+        
+    show dialogue1 "I hope it's not too late for doing grocery."
+        
+    pause
+    
+    show a1_ruralstreetnight as a1_ruralstreet with Dissolve(1)
+    
+    python:
+        renpy.music.set_volume(1.0, delay=2.0, channel="drums")
+        
+    show dialogue1 "Wait. Why is the sky suddenly turn darker?"
+        
+    pause
+    
+    scene black with Dissolve(2)
+    
+    python:
+        renpy.music.set_volume(0.0, delay=2.0, channel="drums")
+    
+    $ code_text = ["{color=[cyellow]}scene{/color} street_light",
+        "{color=[cyellow]}${/color} renpy.music.play(\"{color=[cgreen]}chill_back1.ogg{/color}\",  channel=\"{color=[cblue]}back{/color}\",  {color=[cred]}synchro_start{/color}=True)", 
+        "{color=[cyellow]}${/color} renpy.music.play(\"{color=[cgreen]}chill_drums2.ogg{/color}\", channel='{color=[cgreen]}drums{/color}', {color=[cred]}synchro_start{/color}=True)",
+        "{color=[cyellow]}${/color} renpy.music.set_volume(0.0, delay=0.0, channel=\"{color=[cgreen]}drums{/color}\")",
+        "\"{color=[cgreen]}I hope it's not too late for doing grocery.{/color}\"",
+        "{color=[cyellow]}pause{/color}",
+        ""]
+    
+    show screen show_code(120, 250, size_h5) with diss_diag
+    
+    pause
+    
+    show screen border_pos_morph(100, 300, 1700, 145,  100, 300, 1700, 145,  border_color=cblue) with diss_diag 
+    
+    pause
+    
+    show screen border_pos_morph(100, 300, 1700, 145,  1340, 300, 440, 145,  border_color=cblue)
+    
+    pause
+    
+    show screen border_pos_morph(1340, 300, 440, 145,  100, 430, 1305, 75,  border_color=cblue)
+    
+    pause
+    
+    python:
+        renpy.music.set_volume(1.0, delay=2.0, channel='drums')
+    
+    $ code_text += ["{color=[cyellow]}scene{/color} street_dark",
+        "{color=[cyellow]}${/color} renpy.sound.set_volume(1.0, delay=2.0, channel=\"{color=[cgreen]}drums{/color}\")",
+        "\"{color=[cgreen]}Wait. Why is the sky suddenly turn darker?{/color}\"",
+        "{color=[cyellow]}pause{/color}",
+        ""]
+    
+    show screen border_pos_morph(100, 430, 1305, 75,  100, 740, 1305, 75,  border_color=cblue)
+    
+    pause
+    
+    stop back fadeout 2
+    stop drums fadeout 2
+    hide screen crossfade_channel2
+    hide screen show_code
+    hide screen border_pos_morph
+    with diss_diag
+    
+    pause
+    
+    
     
     show text "{color=[cblue]}Interactivity: Mouse Position{/color}" with diss_diag
     
@@ -610,10 +481,6 @@ label part4:
     pause
     
     show screen screen_demo(3)  # Movable Nanahira!!
-        
-    pause
-    
-    show screen screen_demo(4)  # 1 Second Nanahira
         
     pause
     
@@ -705,11 +572,11 @@ label part4:
         align(0.5, 0.25)
     show screen line_align(0.5, 0.25, 280, color=cred, grad=True)
     show text "{size=[size_h3]}- Globally refreshes interaction{/size}" as text2:
-        anchor(0, 0) pos(350, 450)
+        anchor(0, 0) pos(440, 450)
     show text "{size=[size_h3]}- Timer cannot be set too low{/size}" as text3:
-        anchor(0, 0) pos(350, 600)
-    show text "{size=[size_h3]}- Doesn't work well for Ren'Py 7.5.2/8.0.2 or higher{/size}" as text4:
-        anchor(0, 0) pos(350, 750)
+        anchor(0, 0) pos(440, 600)
+    show text "{size=[size_h3]}- Doesn't work well for Ren'Py 7.5.2 - 7.5.3{/size}" as text4:  # For Ren'Py 7.5.2/8.0.2 and 7.5.3/8.0.3
+        anchor(0, 0) pos(440, 750)
     with diss_diag
     
     pause
@@ -1004,7 +871,7 @@ label part6:
     
     pause
     
-    show text "{color=[cyellow]}Made With :{/color}\n\n- Ranim{vspace=32}- Ren'Py [renpy.version_only]" with diss_diag
+    show text "{color=[cyellow]}Made With{/color}\n\n- Ranim{vspace=32}- Ren'Py [renpy.version_only]" with diss_diag
     
     pause
     
