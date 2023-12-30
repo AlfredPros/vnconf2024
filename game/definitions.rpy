@@ -19,7 +19,7 @@ define size_h4 = 48
 define size_h5 = 42
 define size_h6 = 36
 
-image tim = Movie(fps=30, size=(256, 256), channel='movie', play="tim.mp4", mask="tim.mp4", mask_channel=None, loop=True)
+image tim_video = Movie(fps=30, size=(256, 256), play="images/tim.mp4", image="tim", loop=True, side_mask=True)
 
 style dialogue_text1:
     size size_h2
@@ -42,7 +42,7 @@ define config.mouse = {}
 define config.mouse["say"] = [("images/util/empty32.png", 0, 0)]
 define config.mouse["with"] = [("images/util/empty32.png", 0, 0)]
 define config.mouse["pause"] = [("images/util/cursor32.png", 0, 0)]
-define config.mouse["button"] = [("images/util/empty32.png", 0, 0)]
+define config.mouse["button"] = [("images/util/cursor32.png", 0, 0)]
 
 ## Transforms #######################################################################################################################################
 transform moveup(y=0.5):
@@ -240,7 +240,7 @@ screen audio_progress(x, y, width=720, height=80, channel="music", color="#fff",
     use line_pos(x+int(width*progress)-(height//2), y, height, 5, angle=90)
     
     if show_text:
-        text channel + " (" + str((progress // 0.001) * 0.1) + "%)":
+        text channel + " (" + str((progress // 0.001) / 10.0) + "%)":
             color color
             pos(x+width+32, y+height-80)
 

@@ -71,7 +71,7 @@ label part1:
     
     show text "{size=[size_h1]}Tim Reichert{/size}":
         align(0.173, 0.24)
-    show tim:
+    show tim_video:
         size(512, 512)
         align(0.15, 0.625)
     with diss_diag
@@ -312,7 +312,7 @@ label part3a:
     
     jump switch_crossfade
     
-label switch_crossfade:  # Jankness
+label switch_crossfade:  # Jankness - Note: This doesn't sound seamless in Ren'Py 7.6/8.1 due to audio fadein/fadeout behavior change.
     if crossfade_switched:
         if renpy.music.is_playing(channel="music"):
             play sound "<sync music loop 0.0>" + tendra_fi loop fadein 2
@@ -1172,6 +1172,10 @@ label extra3:
     hide screen extra_hub_choice
     scene black
     with dissolve
+    
+    stop music fadeout 0
+    
+    pause 0.1
     
     show screen horizontal_demo with diss_diag
     
