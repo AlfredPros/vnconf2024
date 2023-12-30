@@ -4,8 +4,8 @@ Slides for AlfredPros' talk in VNConf 2024. This slide is made using Ranim templ
 
 ## Usage
 
-Since this project contains matrixcolor ATL, you should run this on Ren'Py `7.4.x` or above. Due to the newer button behavior change in Ren'Py `7.5.2`/`8.0.2`, 
-it is advised to run this project in between version `7.4.x` to `7.5.1`/`8.0.1`.
+Since this project contains matrixcolor ATL and camera statement, you should run this on Ren'Py `7.4.6` or above. Due to the newer focus displayable behavior change in Ren'Py `7.5.2`/`8.0.2`, 
+it is advised to run this project in between version `7.4.6` to `7.5.1`/`8.0.1`.
 
 ## About Ranim
 
