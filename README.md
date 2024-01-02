@@ -14,7 +14,7 @@ Here are the reasons why :
 ## About Ranim
 
 A manim-inspired Ren'Py template for presentation and animation. Ranim is a personal project I made while making this VNConf 2024 slides project. 
-The project is still unreleased as of right now.
-However, you are free to use the current version of Ranim from what I had in this project.
+The project has been released on https://github.com/AlfredPros/ranim GitHub repository.
+However, you are free to use the version of Ranim from what I had in this project.
 
 Core files : `definitions.rpy` (customizable and utility screens), `images/util` (images used for utility screens)
