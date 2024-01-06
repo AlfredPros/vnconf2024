@@ -127,6 +127,7 @@ In screen, we have timer, one of which lets us to change the image position for,
 We can reduce the timer even more to 0.1 second
 I'm sure you know where this is going. The smaller the timer, the smoother the movement go.
 (Oh, there she goes.)
+I coined a term "timer-based screen" to describe screen that constantly refreshes every period of time.
 Instead of moving image, we can use it to track player's mouse position
 
 Here's the code I used to make it.
