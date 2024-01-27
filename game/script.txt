@@ -1,41 +1,29 @@
 
 Duration: 20 + 5 minutes.
 
-To change:
-- (nah) Add pros and cons on the two crossfade techniques
-	pros:
-	1. tech 1 saves more memory if you plan on using it sparingly
-	2. tech 1 is easier to keep track of on what's currenly playing
-	3. Tech 1 easier code
-	cons:
-	1. tech 1 may cause delay when crossfading because it requires loading time each time it is played*
-	2. tech 1 and tech 2 is sad because of renpy 7.6 / 8.1
-		Solution: None. However, if you use crossfade for introducing other musical component/layer, you can use vertical rearrangement
-
-
 
 First of all, a sound test because this talk will involve some audio panning.
 Can you hear the music go from left to right? ... Alright.
 
 Hello! My name is Alfred and welcome to my tech talk!
-The topic I will be talking about is about dynamic audio implementation with Ren'Py.
+The topic I will be talking is about dynamic audio implementation with Ren'Py.
 I will cover the basics to a more advanced technique.
 The techniques that will be shown here should also be possible to be done in other game engine such as GameMaker Studio and other.
 
-A little bit about myself, I've been working with Ren'Py for over 6 years now.
-I've worked on several visual novels and game projects, the notable one being a lead programmer in Mycorrhiza visual novel.
-This is the first time I am here as a speaker!
+A little bit about myself, I've been working with Ren'Py for over 6 years now. ...
+I've worked on several visual novels and game projects, the notable one being a lead programmer in Mycorrhiza visual novel. ...
+This is the first time I am here as a speaker! ...
 And a fun fact, this entire presentation is made in Ren'Py. 
 
-In this talk, I am partnered with Tim Reichert. This guy.
-In case you didn't know, he is a composer, sound designer, audio director.
-Not only those, He is also the project lead and writer in Mycorrhiza visual novel. 
+In this talk, I am partnered with Tim Reichert. This guy. ...
+In case you didn't know, he is a composer, sound designer, audio director. ...
+Not only those, He is also the project lead and writer in Mycorrhiza visual novel. ... 
 He participated as a speaker in last year's visual novel Conference about what dynamic audio is, 
 so this talk is meant to expand it further to the technical aspect of it.
-If you have any audio-specific questions, Tim will help me answer your question.
+If you have any audio-specific questions, Tim will help me answer your question. ...
 Lastly, his hidden talent is that he is good at singing. (gasp)
 
-A friendly warning, because this talk is oriented on the technical side,
+A friendly reminder, because this talk is oriented on the technical side,
 Ren'Py and Python codes are used in this talk; along with some math as well.
 I will try my best to keep the codes and math at minimum and to make them more digestable. 
 That aside, the source code of this talk and its script is available in GitHub. Link is in the chat.
@@ -43,65 +31,64 @@ Inside it, there's a extra section for supplementary and unused materials when m
 
 That's that for the introduction. Now, let's get into the topic.
 
-First of all, what is dynamic audio?
+First of all, what is dynamic audio? ...
 Here I quote the definition from Tim, "Dynamic audio is audio that is *modified*, or which's 
 sequence is modified *during gameplay*. The change can be a result of a *player's actions*, conscious 
 or unconscious, or variables being *randomized* independent of a player's actions.". ...
 This means that audio that is playing or will be played can be changed by player's interaction or by random chances.
 
-We can derive dynamic audio into two categories.
-First, audio that is affected by player's actions,
+We can derive dynamic audio into two categories. ...
+First, audio that is affected by player's actions, ...
 and second, audio that is affected by random chance or randomization.
 I will disect each of them further, starting from player's actions.
 
 Let's talk about audio channels for a second.
 By default, Ren'Py has three audio channels, which are music, sound, and voice.
 Each audio channels can only play one audio at a time.
-And it is possible to queue multiple audios in a channel. This will be mentioned later in the talk, 
-so keep this information at the back of your head. 
+And it is possible to queue multiple audios in a channel. This will be mentioned later in the talk.
 
-We can utilize audio channels further by putting them in layers.
-This is what we call, "vertical rearrangement"
+We can utilize audio channels further by putting them in layers. ...
+This is what we call, "vertical rearrangement" ...
 For analogy, you can imagine audio layers like character customization screen.
 Each of these layers are customizable. You can replace or hide them. ...
 By having all of these layers, it allows us to adjust characters to the current situation.
 
-Now, this is what would character customization look like if it is audio instead.
+Now, this is what would character customization look like if it is audio instead. ...
 Just like the counterpart, you can replace or mute them. ...
 In a more straightforward example, let's first mute the Pattern channel. ...
 As a character comes to view, the Pattern channel becomes unmuted.
-The music would reflect to the appearance of the character.
+Here, the music would reflect to the appearance of the character.
 
 Now that you have seen the demo of it, how is it done?
-There are two core ideas to make this possible.
-The first is using custom audio channels.
+There are two core ideas to make this possible. ...
+The first is using custom audio channels. ...
 and second being able to synchronize these audio channels.
 
-The first one is custom audio channels.
+The first one is custom audio channels. ...
 In the demo, I have shown the use of three custom audio channel.
-One of which is the "back" channel.
+One of which is the "back" channel. ...
 This code is how to define this channel.
-We will have to use init python, which executes at the start of the visual novel.
-In here, we registers an audio channel with the first argument being the name of the channel.
+We will have to use init python, which executes at the start of the visual novel. ...
+In here, we registers an audio channel with the first argument being the name of the channel. ...
 The second argument is mixer. By default mixers in Ren'Py are music, sfx, and voice, which you can change their volume value
-in preferences screen.
+in preferences screen. ...
 The last argument is to set this channel to loop. By that I mean, when the audio ends, it will loop back to the beginning.
 
-Let me play an audio in the back channel.
-The code to play this audio is quite simple.
-here it is! We simply play chill_back1 in the defined back channel.
+Let me play an audio in the back channel. ...
+The code to play this audio in this channel is quite simple. ...
+here it is! We simply play chill_back1 on the defined back channel.
 
 The other core idea to make vertical rearrangement possible is syncing audio channels.
 Ren'Py has a feature to play multiple audio layers at the same time, which is called syncronous start or syncro_start.
 
-Let me demonstrate it.
-On the top right, we have back and drums channel progress bars.
+Let me demonstrate it. ...
+On the top right, we have back and drums channel progress bars. ...
 Here the main character finally goes outside.
 Notice that both channels are playing at the same time, but the drums channel is muted. ...
 Then as the player proceed to the next scene, the drums channel is unmuted. ...
 
-Let's rewind and focus on how it works.
-After showing the background scene, we play both back and drums channel. ...
+Let's rewind and focus on how it works. ...
+After showing the background scene, we play both back and drums channel. 
 The second line responsible to play the back audio, whereas the third line plays the drums audio. ...
 Notice here that we use synchro_start to make sure that both of the audio channels play at exact same time. ...
 Then we set the drums channel's volume to 0.
@@ -109,29 +96,29 @@ Then we set the drums channel's volume to 0.
 After the player continues, we increase drums channel's volume value to 1.
 
 Now, you have seen one of the example of dynamic audio implementation.
-I will now step the difficulty by a notch.
-In most visual novels, mouse is not utilized as much as all you need to do in most cases is a button to continue the text 
+I will now step the difficulty by a notch. 
+In most visual novels, mouse is not utilized as much because all you need to do in most cases is a button to continue the text 
 or to choose options.
-But mouse allows you to do many interesting interactivity.
+But mouse allows you to do many interesting interactivity. ...
 One of which is to use mouse position. ...
-Remember how I pull up this panning demo for the audio test?
+Remember how I pull up this panning demo for the audio test? ...
 Turns out, you can use mouse to control the audio panning. ...
 You can even move the source point to where ever you want. ... Including the radius too. ...
 
-One important concept you need to know first, is Screen.
-How I teach to my students about screen is that you can imagine it as a blank canvas.
+One important concept you need to know first, is Screen. ...
+You can imagine screen as a blank canvas.
 In it, you can put almost anything you want, including image like so. ...
 You can also make the image move by using buttons. ...
 What if we want the image to move continuously?
-In screen, we have timer, one of which lets us to change the image position for, let's say, every 0.5 second.
-We can reduce the timer even more to 0.1 second
+In screen, we have timer, one of which lets us to change the image position for, let's say, every 0.5 second. ...
+We can reduce the timer even more to 0.1 second. ...
 I'm sure you know where this is going. The smaller the timer, the smoother the movement go.
 (Oh, there she goes.)
-I coined a term "timer-based screen" to describe screen that constantly refreshes every period of time.
+I coined a term "timer-based screen" to describe screen that constantly refreshes every period of time. ...
 Instead of moving image, we can use it to track player's mouse position
 
 Here's the code I used to make it.
-We begin with setting up the variables to know the mouse position in x and y coordinate.
+We begin with setting up the variables to know the mouse position in x and y coordinate. 
 Then we define our screen, which is named "cursor_position"
 In this screen, we have a text which says "Mouse is at (mouse x position) comma (mouse y position)".
 To know where the mouse is, we have to use renpy.mouse_get_pos function and put it in our variables.
@@ -143,30 +130,29 @@ And I personally think it is easier to code and put it together.
 
 However, there are some downsides to this method.
 This method refreshes all interaction, which may not be ideal for some cases. 
-If you experiment this and set the timer value a bit too low, it may break how button hover works, 
-so I don't advice set it too low.
+If you experiment this and set the timer value a bit too low, it may break how button hover works.
 This method doesn't work too well for Ren'Py 7.5.2 to 7.5.3 and its Python 3 equivalent versions 
 because in that version, button hover behavior changed in a not so supportive way.
-It would be great if this technique which I call "timer-based screen" is made into an actual feature 
-instead of just a tech to make complex screen uses. ...
+It would be great if this technique which I call "timer-based screen" is made into an actual Ren'Py feature-
+since it can be used to create minigames and more. ...
 
 Alright, where were we? Right, the mouse panning.
 Let's make one. Suppose we have a circle with radius of 200 pixels.
-The center coordinate of the circle, we call them a and b
+The center coordinate of the circle, we call them a and b. ...
 What we want is so that when the mouse position is on the left side of the circle, the value is -1, which would be the left pan.
-Otherwise, if the mouse position is on the right side of the circle, the value is 1.
+Otherwise, if the mouse position is on the right side of the circle, the value is 1. ...
 I've done some math, so you don't have to, and we have a function of f(x), where x is the mouse x coordinate, 
 which equals to x - a then divide them by the circle radius.
 If you want a homework, you can try to find how to I came to that formula.
-Anyway, onto the code.
-We start by setting up our variables. Here we only need to know where mouse x coordinate is and the panning value.
-Then we define our screen, which takes in parameter of the x center point of the circle and its radius.
-In it, we get our mouse x coordinate.
+Anyway, onto the code. ...
+We start by setting up our variables. Here we only need to know where mouse x coordinate is and the panning value. ...
+Then we define our screen, which takes in parameter of the x center point of the circle and its radius. ...
+In it, we get our mouse x coordinate. ...
 To get the pan value, we can divide the area of the scene into three sections: the left side of the circle, 
-the circle area, and the right side of the circle.
-This if statement handles the left side of the circle, which is when the mouse x coordinate 
-if less than the x center minus its radius. This if statement always sets the pan value to -1. ...
-then, the circle area, which is when the mouse x coordinate is less than the x center plus its radius. 
+the circle area, and the right side of the circle. ...
+This first if statement handles the left side of the circle, which is when the mouse x coordinate is
+less than the x center minus its radius. This if statement always sets the pan value to -1. ...
+Then, the circle area, which is when the mouse x coordinate is less than the x center plus its radius. 
 We use the formula we got earlier and plug it in for our pan value.
 I put in the float function there to show that the pan value should be a float number or decimal. ...
 Lastly, the right side, which will always set the pan value of 1. ...
@@ -175,32 +161,32 @@ Then last, but not least, we make sure to refresh this screen every 0.05 second.
 
 Huff... You have made it past the hardest part. Congratulations!
 
-If you understood all the things I've explained so far, you have more or less know the interactive side of dynamic audio.
+If you understood all the things I've explained so far, you have more or less know the interactive side of dynamic audio. ...
 Now, let's check out the randomization.
 
 A simple example of this is a button that makes a random sound each time the player clicks it. ...
 In this scenario, each time you click the button, it jumps to a label script, which makes a random sound.
 
 The code looks like this.
-First, we pick a random number between 1 and 2.
+First, we pick a random number between 1 and 2. ...
 Then, from the random number we get, we play a sound according to it, which in this case is Sound(the ranumber number)dot ogg. 
 ...
 
 The last topic in this talk is about horizontal rearrangement using randomization.
-Instead of vertical where we increase the audio layers, we use just a layer, but we utilize queue of the audio channel. ...
-You can imagine queue as a container.
+Instead of vertical where we increase the audio layers, we use just one layer, but we utilize queue of the audio channel. ...
+You can imagine queue as a container. ...
 In it, I can put in random numbers from 0 to 2. 
 The numbers here are suppose to represent the audio files that will be played later.
 
 Here is the last demo of the day.
-In this demo, I have an empty queue with no music playing.
+In this demo, I have an empty queue with no music playing. ...
 Then, I play a music. The next thing I can do is to add more music to the queue to play.
-Ren'Py allows it to add and clear queue at ease, so I highly encourage you to play around with this 
+Ren'Py allows it to add and reset queue at ease, so I highly encourage you to play around with this 
 as its behavior can be quite interesting.
 
 A simpler scenario of this for a label script would be something like this.
-Where we loop for 5 times for these two lines of code.
-In this loop, we pick a random number from 1 to 3.
+Where we loop for 5 times for these two lines of code. ...
+In this loop, we pick a random number from 1 to 3. ...
 Then we queue up an audio based on the random number we get.
 
 Alright! That's all for now about randomization in dynamic audio. 
@@ -214,18 +200,18 @@ We can achieve them thanks to audio channels, screen, and random number function
 I'd like to thank Tim for helping me with this talk along with useful tips he gave me.
 Grant Sanderson for the inspiration to make a presentation like this one.
 BlackWing BinLan for the character assets.
-And You, the audience, for coming here to this talk and for the vodders who is watching right now!
+And You, the audience, for coming here to this talk and for the vodders who is watching this right now on Youtube!
 
 This presentation is made using 
 Ranim, a Ren'Py template for presentation like this, totally inspired by manim animation engine.
 and Ren'Py 7.5.1
 
-Do you have any questions? ...
+Do you have any questions?
 
 Thank you very much for all of your questions! I hope to see you all again next time! :D
 
 
-Ranim: a manim-inspired Ren'Py template for presentation and animation.
+
 
 
 

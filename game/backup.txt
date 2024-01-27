@@ -199,6 +199,17 @@ label part3b:
     pause
 
 
+To change:
+- (nah) Add pros and cons on the two crossfade techniques
+	pros:
+	1. tech 1 saves more memory if you plan on using it sparingly
+	2. tech 1 is easier to keep track of on what's currenly playing
+	3. Tech 1 easier code
+	cons:
+	1. tech 1 may cause delay when crossfading because it requires loading time each time it is played*
+	2. tech 1 and tech 2 is not perfect because of renpy 7.6 / 8.1
+		Solution: None. However, if you use crossfade for introducing other musical component/layer, you can use vertical rearrangement
+
 
 Imagine a scenario where a main character is having the best time of their life.
 Here a calm music is playing in the background. ...
@@ -244,3 +255,5 @@ it takes time to load the audio before it can play.
 This result in two audio channels to desync from each other. 
 This issue is especially worse if your computer spec is on the lower end.
 
+
+Ranim: a manim-inspired Ren'Py template for presentation and animation.
